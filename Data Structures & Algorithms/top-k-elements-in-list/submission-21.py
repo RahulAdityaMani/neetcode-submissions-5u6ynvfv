@@ -1,0 +1,20 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        num_to_counts = Counter(nums)
+        max_poss_freq = len(nums)
+        nums_per_freq = [[] for i in range(max_poss_freq)]
+        for num, count in num_to_counts.items():
+            nums_per_freq[count - 1].append(num)
+        output = []
+        i = max_poss_freq - 1
+        while k > 0 and i >= 0:
+            j = 0
+            curr_freq_nums = nums_per_freq[i]
+            while j < len(curr_freq_nums):
+                output.append(curr_freq_nums[j])
+                j += 1
+                k -= 1
+                if k == 0:
+                    break
+            i -= 1
+        return output
